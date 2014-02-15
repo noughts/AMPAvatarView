@@ -124,14 +124,14 @@ CGRect AMPDrawingRectForContentMode(CGSize imageSize, CGRect bounds, UIViewConte
     
     self.innerBackgroundColor = [UIColor whiteColor];
 
-    self.borderWith = 4.0;
+    self.borderWith = 1.0;
     self.borderColor = [UIColor whiteColor];
     
-    self.shadowRadius = 5.0;
-    self.shadowColor = [UIColor blackColor];
+    // self.shadowRadius = 5.0;
+    // self.shadowColor = [UIColor blackColor];
     
-    self.layer.shadowOffset = CGSizeMake(0, 0);
-    self.layer.shadowOpacity = 0.9f;
+    // self.layer.shadowOffset = CGSizeMake(0, 0);
+    // self.layer.shadowOpacity = 0.9f;
 }
 
 #pragma mark -
