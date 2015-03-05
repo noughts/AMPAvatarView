@@ -123,7 +123,7 @@ CGRect AMPDrawingRectForContentMode(CGSize imageSize, CGRect bounds, UIViewConte
     [self setBackgroundColor:[UIColor clearColor]];
     _innerBackgroundColor = [UIColor darkGrayColor];
     _borderWith = 0.5;
-    _borderColor = [[UIColor alloc] initWithWhite:1 alpha:0.2];
+    _borderColor = [[UIColor alloc] initWithWhite:1 alpha:0.33];
 	[self setNeedsDisplay];
     
     // self.shadowRadius = 5.0;
@@ -151,7 +151,7 @@ CGRect AMPDrawingRectForContentMode(CGSize imageSize, CGRect bounds, UIViewConte
 }
 
 - (void)setShadowRadius:(CGFloat)shadowRadius {
-    _shadowRadius = shadowRadius;
+//    _shadowRadius = shadowRadius;
     self.layer.shadowRadius = _shadowRadius;
 }
 
@@ -174,16 +174,9 @@ CGRect AMPDrawingRectForContentMode(CGSize imageSize, CGRect bounds, UIViewConte
     CGContextSaveGState(ctx);
     
     CGPathRef circle = CGPathCreateWithEllipseInRect(bounds, NULL);
-    CGPathRef littleCircle = CGPathCreateWithEllipseInRect(CGRectInset(bounds, _borderWith, _borderWith), NULL);
+    CGPathRef littleCircle = CGPathCreateWithEllipseInRect(CGRectInset(bounds, 0, 0), NULL);
 
-    // Draw the border
-    CGContextSaveGState(ctx); {
-        
-        CGContextBeginPath(ctx);
-        CGContextAddPath(ctx, circle);
-        [_borderColor setFill];
-        CGContextFillPath(ctx);
-    } CGContextRestoreGState(ctx);
+
 
     // Draw the inner background color
     CGContextSaveGState(ctx); {
@@ -201,7 +194,17 @@ CGRect AMPDrawingRectForContentMode(CGSize imageSize, CGRect bounds, UIViewConte
         CGContextClip(ctx);
         [_image drawInRect:AMPDrawingRectForContentMode(_image.size, rect, self.contentMode)];
     } CGContextRestoreGState(ctx);
-    
+	
+	// Draw the border
+	CGRect innerRect = CGRectInset(self.bounds, _borderWith/2.0, _borderWith/2.0);
+	CGContextSaveGState(ctx); {
+		CGContextBeginPath(ctx);
+		CGContextAddPath(ctx, circle);
+		CGContextSetStrokeColorWithColor(ctx, _borderColor.CGColor);
+		CGContextSetLineWidth(ctx, _borderWith);
+		CGContextStrokeEllipseInRect(ctx, innerRect);
+	} CGContextRestoreGState(ctx);
+	
     CGPathRelease(circle);
     CGPathRelease(littleCircle);
     
