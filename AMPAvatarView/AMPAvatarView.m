@@ -121,11 +121,10 @@ CGRect AMPDrawingRectForContentMode(CGSize imageSize, CGRect bounds, UIViewConte
 
 - (void)baseInit {
     [self setBackgroundColor:[UIColor clearColor]];
-    
-    self.innerBackgroundColor = [UIColor whiteColor];
-
-    self.borderWith = 1.0;
-    self.borderColor = [UIColor whiteColor];
+    _innerBackgroundColor = [UIColor darkGrayColor];
+    _borderWith = 0.5;
+    _borderColor = [[UIColor alloc] initWithWhite:1 alpha:0.2];
+	[self setNeedsDisplay];
     
     // self.shadowRadius = 5.0;
     // self.shadowColor = [UIColor blackColor];
